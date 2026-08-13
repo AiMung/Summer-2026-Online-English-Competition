@@ -1589,7 +1589,7 @@
     ════════════════════════════════════════════════════ */
     const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSe9UhwQ2RkacepKNrBzNkYd3_-0a2_8LwY43tbIPr98XgDGDQ/formResponse';
     // Đổi thành URL Worker thật sau khi deploy (bước 2 trong hướng dẫn)
-    const GRADE_API_URL = 'https://english-contest-grader.nguyenaimung.workers.dev/';
+    const GRADE_API_URL = 'https://your-worker-name.your-subdomain.workers.dev';
     const FORM_ENTRIES = {
       name: 'entry.349400029',
       birthYear: 'entry.572428441',
@@ -1652,7 +1652,7 @@
 
     function getBangFileId(bang) {
       const letter = getBangLetter(bang);
-      return `bang_${letter.toLowerCase()}`;
+      return `bang_${letter}`; // khớp đúng tên file thật: bang_A.json, bang_B.json...
     }
 
     function getBangFullLabel(bang) {
