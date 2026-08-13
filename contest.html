@@ -2090,26 +2090,26 @@
         return;
       }
 
+      // Server chỉ trả correctKey/đáp án đúng từng câu SAU KHI cuộc thi đã đóng
+      // (gradeData.details tồn tại). Trong lúc thi, chỉ có điểm số tổng — đây là
+      // chủ đích để không ai "soi" đáp án qua API rồi đăng ký lại chép bài.
+      const hasDetails = !!(gradeData && gradeData.details);
       if (examData && Array.isArray(examData)) {
         for (const q of examData) {
-          const detail = gradeData.details ? gradeData.details[q.globalId] : null;
           const chosen = answers[q.globalId] || null;
-          // Map origKey đúng (từ server) về key A/B/C/D đã bị xáo trộn để hiển thị đúng vị trí
-          const correctOpt = detail ? (q.options || []).find(o => o.origKey === detail.correctKey) : null;
-          q.correctKey = correctOpt ? correctOpt.key : null;
-
-          const isCorrect = detail ? !!detail.isCorrect : false;
-          if (!chosen) {
-            results.push({ q, chosen: null, isCorrect: false, skipped: true });
-          } else if (isCorrect) {
-            correctCount++;
-            results.push({ q, chosen, isCorrect: true, skipped: false });
-          } else {
-            wrongCount++;
-            results.push({ q, chosen, isCorrect: false, skipped: false });
+          let isCorrect = null;
+          if (hasDetails) {
+            const detail = gradeData.details[q.globalId];
+            const correctOpt = detail ? (q.options || []).find(o => o.origKey === detail.correctKey) : null;
+            q.correctKey = correctOpt ? correctOpt.key : null;
+            isCorrect = detail ? !!detail.isCorrect : false;
           }
+          results.push({ q, chosen, isCorrect, skipped: !chosen, hasDetails });
         }
       }
+
+      correctCount = gradeData.correctCount || 0;
+      wrongCount = gradeData.wrongCount || 0;
 
       const totalQs = examData ? examData.length : 50;
       const scoreStr = `${correctCount}/${totalQs}`;
@@ -2207,14 +2207,32 @@
 
       // Build review
       let reviewHtml = '';
+      const anyHasDetails = results.some(r => r.hasDetails);
+      if (!anyHasDetails && results.length > 0) {
+        reviewHtml += `<div class="review-note" style="padding:10px 14px;background:#FFF8E1;border-radius:12px;margin-bottom:12px;font-size:13px;color:var(--ink-soft)">
+          ℹ️ Đáp án đúng từng câu sẽ được công bố sau khi cuộc thi kết thúc, để đảm bảo công bằng cho các bạn thi sau.
+        </div>`;
+      }
       if (results && results.length > 0) {
         for (const r of results) {
+          const chosenText = r.chosen ? (r.q.options.find(o => o.key === r.chosen)?.text || r.chosen) : '—';
+
+          if (!r.hasDetails) {
+            // Chưa mở đáp án: chỉ hiện câu hỏi + lựa chọn của học sinh, không chấm đúng/sai
+            reviewHtml += `<div class="review-item">
+        <div class="review-q">${r.q.question}</div>
+        <div class="review-answer">`;
+            reviewHtml += r.chosen
+              ? `<span class="your">Bạn chọn: ${r.chosen} – ${chosenText}</span>`
+              : `<span class="your">Bạn đã bỏ qua câu này</span>`;
+            reviewHtml += `</div></div>`;
+            continue;
+          }
+
           const cls = r.skipped ? 'skipped' : r.isCorrect ? 'correct' : 'wrong';
           const statusLabel = r.skipped ? 'Bỏ qua' : r.isCorrect ? '✅ Đúng' : '❌ Sai';
           const statusCls = r.skipped ? 'status-skip' : r.isCorrect ? 'status-correct' : 'status-wrong';
-
           const correctOptText = r.q.options.find(o => o.key === r.q.correctKey)?.text || r.q.correctKey;
-          const chosenText = r.chosen ? (r.q.options.find(o => o.key === r.chosen)?.text || r.chosen) : '—';
 
           reviewHtml += `<div class="review-item ${cls}">
         <span class="review-status ${statusCls}">${statusLabel}</span>
