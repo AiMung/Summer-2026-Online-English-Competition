@@ -2431,6 +2431,29 @@
         /* Đứng im nghỉ ngơi ở thời gian còn lại để giữ nét sang trọng */
       }
     }
+
+    .partner-logo-box {
+      background: rgba(255, 255, 255, 0.15);
+      /* Nền trắng trong suốt nhẹ */
+      backdrop-filter: blur(5px);
+      /* Hiệu ứng mờ kính hiện đại */
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 20px;
+      border-radius: 12px;
+      /* Bo góc chữ nhật thay vì hình tròn */
+    }
+
+    .pre-title {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      /* Dùng font nét dày, hiện đại */
+      font-weight: 800;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      /* Giãn chữ ra một chút nhìn sẽ rất sang */
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      /* Đổ bóng nhẹ, mịn */
+    }
   </style>
 </head>
 
@@ -2439,6 +2462,7 @@
   <!-- PRELOADER -->
   <div id="preloader">
     <div class="pre-sun"></div>
+    <!-- Các SVG mây giữ nguyên -->
     <svg class="pre-cloud pre-cloud-1" viewBox="0 0 140 55" fill="#fff">
       <ellipse cx="35" cy="36" rx="30" ry="17" />
       <ellipse cx="72" cy="26" rx="26" ry="22" />
@@ -2451,21 +2475,38 @@
     </svg>
     <svg class="pre-cloud pre-cloud-3" viewBox="0 0 100 42" fill="#fff">
       <ellipse cx="25" cy="28" rx="22" ry="13" />
-      <ellipse cx="52" cy="20" rx="19" ry="18" />
+      <ellipse cx="52" cy="20" rx="19 ry=" 18" />
       <ellipse cx="76" cy="29" rx="17" ry="12" />
     </svg>
+
     <span class="sparkle" style="top:18%;left:16%;animation-delay:.2s">✦</span>
     <span class="sparkle" style="top:70%;left:12%;animation-delay:1s">✦</span>
     <span class="sparkle" style="top:28%;right:14%;animation-delay:1.5s">✦</span>
     <span class="sparkle" style="top:75%;right:18%;animation-delay:.6s">✦</span>
+
     <div class="pre-inner">
-      <span class="org-pill">ĐƠN VỊ TỔ CHỨC</span>
-      <div class="logo-cluster">
-        <div class="logo-bubble m d1"><img src="images/doiTNTP.webp" alt="Đội TNTP" /></div>
-        <div class="logo-bubble m d2"><img src="images/doanTNCS.webp" alt="Đoàn TNCS" /></div>
-        <div class="logo-bubble m d3"><img src="images/hoiLHTN.webp" alt="Hội LHTN" /></div>
+      <!-- KHỐI 1: ĐƠN VỊ TỔ CHỨC -->
+      <div class="org-section">
+        <span class="org-pill">ĐƠN VỊ TỔ CHỨC</span>
+        <div class="logo-cluster">
+          <div class="logo-bubble m d1"><img src="images/doiTNTP.webp" alt="Đội TNTP" /></div>
+          <div class="logo-bubble m d2"><img src="images/doanTNCS.webp" alt="Đoàn TNCS" /></div>
+          <div class="logo-bubble m d3"><img src="images/hoiLHTN.webp" alt="Hội LHTN" /></div>
+        </div>
       </div>
-      <p class="pre-sub">Đoàn Phường Xuân Hương - Đà Lạt tổ chức</p>
+
+      <!-- KHỐI 2: ĐƠN VỊ ĐỒNG HÀNH (THÊM MỚI TẠI ĐÂY) -->
+      <div class="partner-section" style="margin-top: 15px;">
+        <span class="org-pill" style="background: #0056b3;">ĐƠN VỊ ĐỒNG HÀNH</span>
+        <div class="logo-cluster" style="justify-content: center; display: flex; margin-top: 8px;">
+          <div class="logo-bubble"
+            style="width: 60px; height: 60px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <img src="images/vus.webp" alt="VUS" style="width: 85%; height: auto; object-fit: contain;" />
+          </div>
+        </div>
+      </div>
+
+      <p class="pre-sub" style="margin-top: 20px;">Đoàn Phường Xuân Hương - Đà Lạt tổ chức</p>
       <p class="pre-title">SUMMER 2026<br />ONLINE ENGLISH COMPETITION</p>
 
       <div class="load-track">
@@ -2509,7 +2550,7 @@
       </div>
       <div class="hero-cta-wrap">
         <a href="#dang-ky" class="btn-primary">🚀 ĐĂNG KÝ THI NGAY</a>
-        <p class="hero-cta-sub">Miễn phí · Trực tuyến · Học sinh lớp 1 đến lớp 12</p>
+        <p class="hero-cta-sub">Miễn phí · Trực tuyến · Học sinh lớp 2 đến lớp 12</p>
       </div>
     </section>
 
@@ -2683,7 +2724,7 @@
       <div class="register-card reveal" id="registerCard">
         <div class="register-header">
           <h3>🚀 Form Đăng Ký Thi</h3>
-          <p>Miễn phí · Chỉ mất 1 phút · Học sinh lớp 1 đến 12</p>
+          <p>Miễn phí · Chỉ mất 1 phút · Học sinh lớp 2 đến 12</p>
         </div>
         <div class="register-body">
           <form id="registrationForm" novalidate>
@@ -3016,7 +3057,7 @@
     <section class="cta-section">
       <p class="cta-eyebrow">CÒN CHẦN CHỜ GÌ NỮA?</p>
       <h2 class="cta-title">Tham gia ngay hôm nay! 🌟</h2>
-      <p class="cta-sub">Miễn phí · Trực tuyến · Học sinh lớp 1 đến lớp 12</p>
+      <p class="cta-sub">Miễn phí · Trực tuyến · Học sinh lớp 2 đến lớp 12</p>
       <a href="#dang-ky" class="btn-primary" style="font-size:15px;padding:14px 36px">🚀 ĐĂNG KÝ THI MIỄN PHÍ</a>
     </section>
 
