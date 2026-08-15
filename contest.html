@@ -1640,15 +1640,11 @@
     }
 
     function getBangLetter(bang) {
-      if (!bang) return 'A';
-      const s = bang.toString().toLowerCase();
-      if (s.includes('a')) return 'A';
-      if (s.includes('b')) return 'B';
-      if (s.includes('c')) return 'C';
-      if (s.includes('d')) return 'D';
-      if (s.includes('e')) return 'E';
-      return 'A';
-    }
+  if (!bang) return 'A';
+  const s = bang.toString().trim().toUpperCase();
+  const match = s.match(/[ABCDE]\s*$/); // lấy chữ cái A-E ở cuối chuỗi
+  return match ? match[0] : 'A';
+}
 
     function getBangFileId(bang) {
       const letter = getBangLetter(bang);
